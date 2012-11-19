@@ -1,0 +1,17 @@
+---
+applications:
+  .:
+    name: launchthing-workers-app
+    framework:
+      name: rack
+      info:
+        mem: 64M
+        description: Rack Application
+        exec: 
+    runtime: ruby19
+    url: launchthing-workers.cloudfoundry.com
+    mem: 64M
+    instances: 1
+    services:
+      queue-redis-1:
+        type: redis

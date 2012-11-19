@@ -1,0 +1,20 @@
+---
+applications:
+  .:
+    name: launchthing-workers
+    framework:
+      name: standalone
+      info:
+        mem: 64M
+        description: Standalone Application
+        exec:
+    runtime: ruby19
+    command: bundle exec sidekiq -e production -q crawl -q page -r ./workers.rb
+    url:
+    mem: 128M
+    instances: 1
+    services:
+      queue-redis-1:
+        type: redis
+      page-mongo-1:
+        type: mongodb
