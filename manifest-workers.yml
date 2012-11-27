@@ -9,12 +9,12 @@ applications:
         description: Standalone Application
         exec:
     runtime: ruby19
-    command: bundle exec sidekiq -e production -q crawl -q page -r ./workers.rb
+    command: bundle exec sidekiq -q crawl -q page -c 6 -r ./workers.rb
     url:
     mem: 128M
     instances: 1
     services:
-      queue-redis-1:
+      worker-redis-1:
         type: redis
-      page-mongo-1:
+      worker-mongo-1:
         type: mongodb
