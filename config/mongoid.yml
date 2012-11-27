@@ -1,0 +1,10 @@
+# CloudFoundry will autoconfigure this.
+
+development:
+  database: launchthing_workers_development
+
+test:
+  database: launchthing_workers_test
+
+production:
+  database: db
