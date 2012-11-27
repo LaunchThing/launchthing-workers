@@ -2,7 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'sidekiq'
 require 'sidekiq/web'
-require 'workers'
+
+require_relative 'workers'
 
 module LaunchThing
   class WorkerApp < Sinatra::Base
