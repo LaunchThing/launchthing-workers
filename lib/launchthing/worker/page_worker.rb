@@ -1,4 +1,6 @@
 require 'tire'
+require 'anemone'
+require 'digest/md5'
 
 module LaunchThing
 
@@ -14,7 +16,19 @@ module LaunchThing
     include Sidekiq::Worker
     sidekiq_options :queue => :page
 
-    def perform(project, url)
+    def perform(project_id, site_id, page)
+      page = Anemone::Page.from_hash(page)
+
+      Tire.index('pages') do
+        store(
+          :id => Digest::MD5.hexdigest(page.url.to_s),
+          :url => page.url.to_s,
+          :project_id => project_id, 
+          :site_id => site_id,
+          :title => (page.doc.at_xpath("//title").text rescue nil),
+          :type => 'legacy'
+        )
+      end
     end
 
   end
